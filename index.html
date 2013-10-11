@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1>I'm a Debitoor API OAuth 2.0 sample app</h1>
+	<p>Check my <a href="https://github.com/e-conomic/debitoor-oauth-sample">source code</a> to see how to use the OAuth 2.0 flow to obtain access to the Debitoor API.</p>
+	<p>If you grant me access I will fetch your customers and list them on the screen.</p>
+	<form action="https://app.debitoor.com/login/oauth2/authorize" method="GET">
+		<input type="hidden" name="lang" value="en-GB">
+		<input type="hidden" name="response_type" value="code">
+		<label>redirect_uri: <input type="text" name="redirect_uri" value="https://s3-eu-west-1.amazonaws.com/debitoor-oauth-sample/callback.html"></label><br>
+		<label>client_id: <input type="text" name="client_id" value="5257b499d99144e920004e85"></label><br>
+		<label>state: <input type="text" name="state" value="state-of-my-app"></label><br>
+		<input type="submit" value="Give me access to your Debitoor stuff!">
+	</form>
+</body>
+</html>

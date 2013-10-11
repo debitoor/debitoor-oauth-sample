@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+		var postData = {
+			code: getParameterByName('code'),
+			client_secret: '04b7ca36f5ec87d543234c1f893b5978',
+			redirect_uri: 'https://s3-eu-west-1.amazonaws.com/debitoor-oauth-sample/callback.html'
+		};
+
+		var state = getParameterByName('state');
+		var url = 'https://app.debitoor.com/login/oauth2/access_token';
+
+		$.post(url, postData).done(function(data){
+			$.ajax('https://api.debitoor.com/api/v1.0/customers?token=' + data.access_token)
+				.always(function(data){
+					$('pre').html(JSON.stringify(data, null, '\t'));
+				});
+		});
+
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+			results = regex.exec(location.search);
+			return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+		}
+	</script>
+	<pre></pre>
+</body>
+</html>

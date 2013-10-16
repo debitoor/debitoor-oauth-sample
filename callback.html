@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+	<pre></pre>
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
 		var postData = {
@@ -10,14 +11,19 @@
 		};
 
 		var state = getParameterByName('state');
+		var error = getParameterByName('error');
 		var url = 'https://app.debitoor.com/login/oauth2/access_token';
 
-		$.post(url, postData).done(function(data){
-			$.ajax('https://api.debitoor.com/api/v1.0/customers?token=' + data.access_token)
-				.always(function(data){
-					$('pre').html(JSON.stringify(data, null, '\t'));
-				});
-		});
+		if (error) {
+			$('pre').html('error: ' + error);
+		} else {
+			$.post(url, postData).done(function(data){
+				$.ajax('https://api.debitoor.com/api/v1.0/customers?token=' + data.access_token)
+					.always(function(data){
+						$('pre').html(JSON.stringify(data, null, '\t'));
+					});
+			});
+		}
 
 		function getParameterByName(name) {
 			name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
@@ -26,6 +32,5 @@
 			return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 		}
 	</script>
-	<pre></pre>
 </body>
 </html>
